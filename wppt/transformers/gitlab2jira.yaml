@@ -1,0 +1,7 @@
+gitlab2jira:
+  enabled: true
+  target_webhook: https://example.com/rest/cb-automation/latest/hooks/{JIRA_WEBHOOK_ID}
+  translations:
+    data:
+      name: '[{data[project][name]}][{data[object_kind]}] {data[object_attributes][title]}'
+      description: 'Description: {data[object_attributes][description]}\nURL:{data[object_attributes][url]}' 
