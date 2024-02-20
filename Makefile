@@ -5,10 +5,10 @@ MODULES := $(wildcard $(PACKAGE)/*.py)
 # MAIN TASKS ##################################################################
 
 .PHONY: all
-all: doctor format check test mkdocs ## Run all tasks that determine CI status
+all: format check test mkdocs ## Run all tasks that determine CI status
 
 .PHONY: dev
-dev: install .clean-test ## Continuously run CI tasks when files chanage
+dev: install ## Continuously run CI tasks when files chanage
 	poetry run sniffer
 
 # SYSTEM DEPENDENCIES #########################################################
@@ -18,10 +18,6 @@ bootstrap: ## Attempt to install system dependencies
 	asdf plugin add python || asdf plugin update python
 	asdf plugin add poetry || asdf plugin update poetry
 	asdf install
-
-.PHONY: doctor
-doctor: ## Confirm system dependencies are available
-	bin/verchew
 
 # PROJECT DEPENDENCIES ########################################################
 

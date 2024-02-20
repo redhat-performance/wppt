@@ -32,6 +32,7 @@ def dinamic_transformer(transformer: str):
             traverse_format_dict(translations, data)
         except KeyError as ಠ_ಠ:
             return f"{ಠ_ಠ}", 400
+        import ipdb;ipdb.set_trace()
         response = requests.post(
             webhook_url, headers=headers, data=json.dumps(translations)
         )
