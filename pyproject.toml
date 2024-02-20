@@ -6,13 +6,13 @@ description = "wppt provides an easy way to intercept, manage, manipulate and re
 
 packages = [{ include = "wppt" }]
 
-license = "MIT"
+license = "GPL3"
 authors = ["Gonzalo Rafuls <grafuls@redhat.com>"]
 
 readme = "README.md"
 homepage = "https://pypi.org/project/wppt"
 documentation = "https://wppt.readthedocs.io"
-repository = "https://github.com/grafuls/wppt"
+repository = "https://github.com/redhat-performance/wppt"
 
 keywords = []
 classifiers = [

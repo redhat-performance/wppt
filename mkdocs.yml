@@ -2,8 +2,8 @@ site_name: wppt
 site_description: wppt provides an easy way to intercept, manage, manipulate and re-send a webhook to any Rest API or incoming webhook service (like JIRA).
 site_author: Gonzalo Rafuls
 
-repo_url: https://github.com/grafuls/wppt
-edit_uri: https://github.com/grafuls/wppt/edit/main/docs
+repo_url: https://github.com/redhat-performance/wppt
+edit_uri: https://github.com/redhat-performance/wppt/edit/main/docs
 
 theme: readthedocs
 
