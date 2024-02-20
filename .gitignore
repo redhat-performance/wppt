@@ -48,3 +48,9 @@ coverage.xml
 
 # Eclipse
 .settings
+
+# VS Code
+.vscode
+
+# poetry
+poetry.lock
