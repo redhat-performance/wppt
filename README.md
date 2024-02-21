@@ -1,4 +1,5 @@
-# Wppt 
+# Wppt
+#### Webhook Payload Proxy Transformer
 [![Unix Build Status](https://img.shields.io/github/actions/workflow/status/grafuls/wppt/main.yml?branch=main&label=linux)](https://github.com/grafuls/wppt/actions)
 [![Coverage Status](https://img.shields.io/codecov/c/gh/grafuls/wppt)](https://codecov.io/gh/grafuls/wppt)
 
@@ -10,7 +11,7 @@ Wppt(Pronounced: [ˈwɪpɪt]) provides an easy way to intercept, manage, manipul
 
 Some services/platforms don't provide an easy-to-use integration vehicle for transforming and syncing requests, payloads and automation e.g. Gitlab -> Jira. Instead of paying for an expensive third-party service to provide integrations you can do this easily yourself on-premise.
 
-## How wppt Does Work?
+## How Does `wppt` Work?
 
  Wppt leverages Flask dynamic routing. The endpoint is variable and defined via one or multiple yaml files. 
  Based on the endpoint url, `wppt` parses all the yaml files stored on the `transformers` directory, and retrieves the outgoing webhook url and the translations. It then parses all the translations and converts the existing data from the incoming webhook into a new payload structure as defined on the yaml.
@@ -24,7 +25,7 @@ gitlab2jira:
   translations:
     data:
       name: '[{data[project][name]}][{data[object_kind]}] {data[object_attributes][title]}'
-      description: 'Description: {data[object_attributes][description]}\nURL:{data[object_attributes][url]}' 
+      description: 'Description: {data[object_attributes][description]}\nURL:{data[object_attributes][url]}'
 ```
 
 Given the following incoming webhook payload to `http://{FQDN}:5005/gitlab2jira/`:

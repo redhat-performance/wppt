@@ -15,12 +15,6 @@
     * Linux: [https://graphviz.org/download](https://graphviz.org/download/)
     * Windows: [https://graphviz.org/download](https://graphviz.org/download/)
 
-To confirm these system dependencies are configured correctly:
-
-```text
-$ make bootstrap
-$ make doctor
-```
 
 ### Installation
 
