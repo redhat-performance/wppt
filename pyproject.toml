@@ -10,14 +10,14 @@ license = "GPL3"
 authors = ["Gonzalo Rafuls <grafuls@redhat.com>"]
 
 readme = "README.md"
-homepage = "https://pypi.org/project/wppt"
-documentation = "https://wppt.readthedocs.io"
+homepage = "https://github.com/redhat-performance/wppt"
+documentation = "https://github.com/redhat-performance/wppt/blob/main/README.md"
 repository = "https://github.com/redhat-performance/wppt"
 
 keywords = []
 classifiers = [
     # TODO: update this list to match your application: https://pypi.org/pypi?%3Aaction=list_classifiers
-    "Development Status :: 1 - Planning",
+    "Development Status :: 3 - Alpha",
     "Natural Language :: English",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
@@ -29,9 +29,9 @@ classifiers = [
 
 python = "^3.11"
 
-# TODO: Remove these and add your library's requirements
-flask = "*"
-requests = "*"
+flask = "3.0.2"
+requests = "2.31.0"
+pyyaml = "6.0.1"
 
 [tool.poetry.dev-dependencies]
 
@@ -39,7 +39,7 @@ requests = "*"
 black = "^22.1"
 tomli = "*"     # missing 'black' dependency
 isort = "^5.10"
-ipdb = "*"      # missing 'black' dependency
+ipdb = "0.13.13"      # missing 'black' dependency
 
 # Linters
 mypy = "^1.0"
@@ -67,10 +67,6 @@ pyinstaller = "*"
 sniffer = "*"
 MacFSEvents = { version = "*", platform = "darwin" }
 pync = { version = "*", platform = "darwin" }
-
-[tool.poetry.scripts]
-
-wppt = "wppt.cli:main"
 
 [tool.black]
 
