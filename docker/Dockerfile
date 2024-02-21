@@ -2,12 +2,13 @@
 FROM python:3.11
 LABEL authors="grafuls"
 
-RUN apt-get install git patch
+RUN apt-get install git patch make
 
 # Set the working directory inside the container
 WORKDIR /opt
 RUN git clone https://github.com/redhat-performance/wppt
 WORKDIR /opt/wppt
+RUN git checkout development
 
 # Install Poetry
 RUN pip install poetry
@@ -16,4 +17,4 @@ RUN pip install poetry
 RUN make install
 
 # Set the entrypoint command to run the project
-CMD ["make", "run",]
+CMD ["make", "run"]
