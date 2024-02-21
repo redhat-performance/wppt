@@ -61,7 +61,9 @@ Given the following incoming webhook payload to `http://{FQDN}:5005/gitlab2jira/
 
 Install it directly into a poetry virtual environment:
 
-```text
+```bash
+$ git clone https://github.com/redhat-performance/wppt
+$ cd wppt
 $ make install
 ```
 
@@ -69,6 +71,19 @@ $ make install
 
 After installation, the server can be started with:
 
-```text
+```bash
 $ make run
+```
+
+### Via Podman
+
+#### Building the image
+```bash
+$ cd docker
+$ podman build -t wppt .
+```
+
+#### Running
+```bash
+$ podman run -it --rm -v /path/to/local/transformers/:/opt/wppt/transformers wppt
 ```
