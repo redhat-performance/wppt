@@ -1,6 +1,6 @@
 # Wppt
 #### Webhook Payload Proxy Transformer
-![wppt](/assets/logo.svg)
+![wppt](/assets/logo.png)
 [![Unix Build Status](https://img.shields.io/github/actions/workflow/status/grafuls/wppt/main.yml?branch=main&label=linux)](https://github.com/grafuls/wppt/actions)
 [![Coverage Status](https://img.shields.io/codecov/c/gh/grafuls/wppt)](https://codecov.io/gh/grafuls/wppt)
 
