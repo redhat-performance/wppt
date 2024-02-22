@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-from flask import Flask, request
+from flask import Flask, request, jsonify, Response
 import requests
 import json
 
@@ -16,7 +16,7 @@ def hello():
 
 
 @app.route("/<transformer>/", methods=["POST"])
-def dinamic_transformer(transformer: str):
+def dinamic_transformer(transformer: str) -> Response:
     data = request.json
     definitions = parse_definitions(TRANSFORMERS_PATH)
     for _transformer, definition in definitions.items():
@@ -24,23 +24,40 @@ def dinamic_transformer(transformer: str):
             if definition.get("enabled"):
                 translations = definition.get("translations")
                 webhook_url = definition.get("target_webhook")
+
+                headers = {"Content-`type": "application/json"}
+                try:
+                    traverse_format_dict(translations, data)
+                except KeyError as ಠ_ಠ:
+                    return jsonify(f"{ಠ_ಠ}", 400)
+                
+                try:
+                    response = requests.post(
+                        webhook_url, headers=headers, data=json.dumps(translations)
+                    )
+                except requests.exceptions.RequestException as e:
+                    payload = {
+                        "status_code": 400,
+                        "error": f"{e}",
+                        "message": f"Failed to send the transformed webhook for {_transformer}.",
+                    }
+                    return jsonify(payload)
+                
+                if response.status_code not in (200, 201, 202, 204):
+                    payload = {
+                        "status_code": response.status_code,
+                        "error": response.text,
+                        "message": f"Failed to send the transformed webhook for {_transformer}.",
+                    }
+                    return jsonify(payload)
             else:
-                return f"Transformer {_transformer} is disabled", 200
-
-        headers = {"Content-type": "application/json"}
-        try:
-            traverse_format_dict(translations, data)
-        except KeyError as ಠ_ಠ:
-            return f"{ಠ_ಠ}", 400
-        import ipdb;ipdb.set_trace()
-        response = requests.post(
-            webhook_url, headers=headers, data=json.dumps(translations)
-        )
-
-        print(response.status_code)
-        print(response.text)
-
-    return f"Transformers executed.", 200
+                return jsonify(f"Transformer {_transformer} is disabled", 400)
+        
+    response = {
+        "status_code": 200,
+        "message": "Transformers executed.",
+    }
+    return jsonify(response)
 
 
 if __name__ == "__main__":

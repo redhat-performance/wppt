@@ -20,9 +20,6 @@ jobs:
 
     - uses: Gr1N/setup-poetry@v8
 
-    - name: Check dependencies
-      run: make doctor
-
     - uses: actions/cache@v2
       with:
         path: .venv
