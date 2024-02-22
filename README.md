@@ -85,5 +85,6 @@ $ podman build -t wppt .
 
 #### Running
 ```bash
-$ podman run -it --rm -v /path/to/local/transformers/:/opt/wppt/transformers wppt
+$ podman run -it --rm -v /path/to/local/transformers/:/opt/wppt/transformers -p 5005:5005 wppt
 ```
+
