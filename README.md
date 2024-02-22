@@ -1,12 +1,10 @@
 # Wppt
 #### Webhook Payload Proxy Transformer
-![wppt](/assets/logo.png)
-[![Unix Build Status](https://img.shields.io/github/actions/workflow/status/grafuls/wppt/main.yml?branch=main&label=linux)](https://github.com/grafuls/wppt/actions)
-[![Coverage Status](https://img.shields.io/codecov/c/gh/grafuls/wppt)](https://codecov.io/gh/grafuls/wppt)
+<img src="assets/logo.png" width=50% height=50%>
 
 ## Overview
 
-Wppt(Pronounced: [ˈwɪpɪt]) provides an easy way to intercept, manage, manipulate and re-send a webhook/API call to any Rest API or incoming webhook service (like JIRA).
+Wppt *(Pronounced: [**ˈwɪpɪt**])* provides an easy way to intercept, manage, manipulate and re-send a webhook/API call to any Rest API or incoming webhook service (like JIRA).
 
 ## Why Is This Needed?
 
