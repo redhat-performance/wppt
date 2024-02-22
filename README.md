@@ -1,6 +1,6 @@
 # Wppt
 #### Webhook Payload Proxy Transformer
-<img src="assets/logo.png" width=50% height=50%>
+<img src="assets/logo.png" width=100px height=100px>
 
 ## Overview
 
