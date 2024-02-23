@@ -37,7 +37,7 @@ class TestUtils:
                 assert yaml_definitions == expected_yaml_definitions
 
     def test_traverse_format_dict(self):
-        dictionary = {'key1': 'Hello {data}', 'key2': 'Welcome {data}'}
+        dictionary = {'key1': 'Hello {payload}', 'key2': 'Welcome {payload}'}
         data = 'World'
         expected_dictionary = {'key1': 'Hello World', 'key2': 'Welcome World'}
 

@@ -35,6 +35,6 @@ def traverse_format_dict(dictionary, data):
             traverse_format_dict(value, data)
         else:
             try:
-                dictionary[key] = value.format(data=data)
+                dictionary[key] = value.format(payload=data)
             except KeyError as ಠ_ಠ:
                 raise KeyError(f"Key {ಠ_ಠ} not found in data")

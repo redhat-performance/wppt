@@ -16,22 +16,23 @@ Some services/platforms don't provide an easy-to-use integration vehicle for tra
  Wppt leverages Flask dynamic routing. The endpoint is variable and defined via one or multiple yaml files. 
  Based on the endpoint url, `wppt` parses all the yaml files stored on the `transformers` directory, and retrieves the outgoing webhook url and the translations. It then parses all the translations and converts the existing data from the incoming webhook into a new payload structure as defined on the yaml.
 
+### Example:
+
 ```mermaid
  sequenceDiagram
     Gitlab Outgoing Webhook->>wppt: Original Payload
     wppt->>Jira Webhook Listener: Transformed Payload
 ```
 
-### Example:
-
+The corresponding endpoint as defined on the transformer yaml
 ```yaml
 gitlab2jira:
   enabled: true
   target_webhook: https://example.com/rest/cb-automation/latest/hooks/{JIRA_WEBHOOK_ID}
   translations:
     data:
-      name: '[{data[project][name]}][{data[object_kind]}] {data[object_attributes][title]}'
-      description: 'Description: {data[object_attributes][description]}\nURL:{data[object_attributes][url]}'
+      name: '[{payload[project][name]}][{payload[object_kind]}] {payload[object_attributes][title]}'
+      description: 'Description: {payload[object_attributes][description]}\nURL:{payload[object_attributes][url]}'
 ```
 
 Given the following incoming webhook payload to `http://{FQDN}:5005/gitlab2jira/`:
