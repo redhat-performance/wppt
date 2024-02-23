@@ -17,9 +17,9 @@ Some services/platforms don't provide an easy-to-use integration vehicle for tra
  Based on the endpoint url, `wppt` parses all the yaml files stored on the `transformers` directory, and retrieves the outgoing webhook url and the translations. It then parses all the translations and converts the existing data from the incoming webhook into a new payload structure as defined on the yaml.
 
 ```mermaid
- flowchart TD
-    id1([Gitlab]) -. Outgoing Payload .-> id2([wppt])
-    id2([wppt]) -. Transformed Payload .-> id3([Jira])
+ sequenceDiagram
+    Gitlab Outgoing Webhook->>wppt: Original Payload
+    wppt->>Jira Webhook Listener: Transformed Payload
 ```
 
 ### Example:
