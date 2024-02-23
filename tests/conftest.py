@@ -2,6 +2,7 @@ import pytest
 
 from wppt.app import app as flask_app
 
+
 @pytest.fixture(scope="module")
 def test_client():
     """

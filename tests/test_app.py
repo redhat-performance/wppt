@@ -1,6 +1,8 @@
 from unittest.mock import patch
-from pytest import raises
+
 import requests
+from pytest import raises
+
 
 class TestApp:
 

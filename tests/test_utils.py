@@ -1,5 +1,7 @@
 from unittest.mock import patch
-from wppt.utils import parse_definitions, walk_dir, read_yaml, traverse_format_dict
+
+from wppt.utils import parse_definitions, read_yaml, traverse_format_dict, walk_dir
+
 
 class TestUtils:
 

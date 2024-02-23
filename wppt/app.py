@@ -1,8 +1,9 @@
 #! /usr/bin/env python
 
-from flask import Flask, request, jsonify, Response
-import requests
 import json
+
+import requests
+from flask import Flask, Response, jsonify, request
 
 from wppt.config import TRANSFORMERS_PATH
 from wppt.utils import parse_definitions, traverse_format_dict
