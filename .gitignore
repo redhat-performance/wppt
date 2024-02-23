@@ -51,6 +51,3 @@ coverage.xml
 
 # VS Code
 .vscode
-
-# poetry
-poetry.lock
