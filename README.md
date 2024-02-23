@@ -1,11 +1,11 @@
+<img src="assets/logo.png" width=100px height=100px> 
+
 # Wppt
 #### Webhook Payload Proxy Transformer
-[![Unix Build Status](https://img.shields.io/github/actions/workflow/status/grafuls/wppt/main.yml?branch=main&label=linux)](https://github.com/grafuls/wppt/actions)
-[![Coverage Status](https://img.shields.io/codecov/c/gh/grafuls/wppt)](https://codecov.io/gh/grafuls/wppt)
 
 ## Overview
 
-Wppt(Pronounced: [ˈwɪpɪt]) provides an easy way to intercept, manage, manipulate and re-send a webhook/API call to any Rest API or incoming webhook service (like JIRA).
+Wppt *(Pronounced: [**ˈwɪpɪt**])* provides an easy way to intercept, manage, manipulate and re-send a webhook/API call to any Rest API or incoming webhook service (like JIRA).
 
 ## Why Is This Needed?
 
@@ -18,18 +18,27 @@ Some services/platforms don't provide an easy-to-use integration vehicle for tra
 
 ### Example:
 
+```mermaid
+ sequenceDiagram
+    Gitlab Outgoing Webhook->>wppt: Original Payload
+    wppt->>Jira Webhook Listener: Transformed Payload
+```
+
+The corresponding endpoint as defined on the transformer yaml
 ```yaml
+# example.yaml
 gitlab2jira:
   enabled: true
   target_webhook: https://example.com/rest/cb-automation/latest/hooks/{JIRA_WEBHOOK_ID}
   translations:
     data:
-      name: '[{data[project][name]}][{data[object_kind]}] {data[object_attributes][title]}'
-      description: 'Description: {data[object_attributes][description]}\nURL:{data[object_attributes][url]}'
+      name: '[{payload[project][name]}][{payload[object_kind]}] {payload[object_attributes][title]}'
+      description: 'Description: {payload[object_attributes][description]}\nURL:{payload[object_attributes][url]}'
 ```
 
-Given the following incoming webhook payload to `http://{FQDN}:5005/gitlab2jira/`:
+Given the following incoming webhook payload to the yaml defined endpoint `http://{FQDN}:5005/gitlab2jira/`:
 ```json
+# Incoming Payload
 {
     "project":{"name":"landing"}, 
     "object_kind":"story", 
@@ -41,8 +50,9 @@ Given the following incoming webhook payload to `http://{FQDN}:5005/gitlab2jira/
 }
 ```
 
-`wppt` will then send and HTTP post request to `target_webhook` with the following payload:
+`wppt` will then send an HTTP post request to the `target_webhook` defined on the yaml with the following payload:
 ```json
+# Transformed Payload
 {
     "data": {
         "name": "[landing][story] Issue with", 
@@ -50,6 +60,9 @@ Given the following incoming webhook payload to `http://{FQDN}:5005/gitlab2jira/
     }
 }
 ```
+
+> [!NOTE]  
+> The structure of the transformed payload is based on the structure defined on the childs of the yaml `translations` node
 
 ## Requirements
 

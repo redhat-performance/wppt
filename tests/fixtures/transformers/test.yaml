@@ -3,5 +3,5 @@ test:
   target_webhook: https://example.com/rest/api/
   translations:
     data:
-      name: '[{data[project][name]}][{data[object_kind]}] {data[object_attributes][title]}'
-      description: 'Description: {data[object_attributes][description]}\nURL:{data[object_attributes][url]}' 
+      name: '[{payload[project][name]}][{payload[object_kind]}] {payload[object_attributes][title]}'
+      description: 'Description: {payload[object_attributes][description]}\nURL:{payload[object_attributes][url]}' 

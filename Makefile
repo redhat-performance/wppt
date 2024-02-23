@@ -103,8 +103,8 @@ read-coverage:
 
 .PHONY: format
 format: install
-	poetry run isort $(PACKAGE) tests notebooks
-	poetry run black $(PACKAGE) tests notebooks
+	poetry run isort $(PACKAGE) tests
+	poetry run black $(PACKAGE) tests
 	@ echo
 
 .PHONY: check
