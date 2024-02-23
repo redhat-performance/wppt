@@ -1,6 +1,7 @@
+<img src="assets/logo.png" width=100px height=100px> 
+
 # Wppt
 #### Webhook Payload Proxy Transformer
-<img src="assets/logo.png" width=100px height=100px>
 
 ## Overview
 
@@ -14,6 +15,12 @@ Some services/platforms don't provide an easy-to-use integration vehicle for tra
 
  Wppt leverages Flask dynamic routing. The endpoint is variable and defined via one or multiple yaml files. 
  Based on the endpoint url, `wppt` parses all the yaml files stored on the `transformers` directory, and retrieves the outgoing webhook url and the translations. It then parses all the translations and converts the existing data from the incoming webhook into a new payload structure as defined on the yaml.
+
+```mermaid
+ graph LR;
+    Gitlab -- Outgoing Payload --> wppt;
+    wppt -- Transformed Payload --> Jira;
+```
 
 ### Example:
 
