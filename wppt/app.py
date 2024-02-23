@@ -31,10 +31,13 @@ def dinamic_transformer(transformer: str) -> Response:
                     traverse_format_dict(translations, data)
                 except KeyError as ಠ_ಠ:
                     return jsonify(f"{ಠ_ಠ}", 400)
-                
+
                 try:
                     response = requests.post(
-                        webhook_url, headers=headers, data=json.dumps(translations)
+                        webhook_url,
+                        headers=headers,
+                        data=json.dumps(translations),
+                        timeout=10,
                     )
                 except requests.exceptions.RequestException as e:
                     payload = {
@@ -43,7 +46,7 @@ def dinamic_transformer(transformer: str) -> Response:
                         "message": f"Failed to send the transformed webhook for {_transformer}.",
                     }
                     return jsonify(payload)
-                
+
                 if response.status_code not in (200, 201, 202, 204):
                     payload = {
                         "status_code": response.status_code,
@@ -53,12 +56,13 @@ def dinamic_transformer(transformer: str) -> Response:
                     return jsonify(payload)
             else:
                 return jsonify(f"Transformer {_transformer} is disabled", 400)
-        
-    response = {
-        "status_code": 200,
-        "message": "Transformers executed.",
-    }
-    return jsonify(response)
+
+    return jsonify(
+        {
+            "status_code": 200,
+            "message": "Transformers executed.",
+        }
+    )
 
 
 if __name__ == "__main__":
