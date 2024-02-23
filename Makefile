@@ -32,7 +32,6 @@ $(DEPENDENCIES): poetry.lock
 	@ rm -rf ~/Library/Preferences/pypoetry
 	@ poetry config virtualenvs.in-project true
 	poetry install
-	poetry run mypy --install-types
 
 ifndef CI
 poetry.lock: pyproject.toml
