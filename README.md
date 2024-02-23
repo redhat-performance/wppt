@@ -1,4 +1,4 @@
-<img src="assets/logo.png" width=100px height=100px> 
+<img src="assets/logo.png" width=100px height=100px>
 
 # Wppt
 #### Webhook Payload Proxy Transformer
@@ -13,7 +13,7 @@ Some services/platforms don't provide an easy-to-use integration vehicle for tra
 
 ## How Does `wppt` Work?
 
- Wppt leverages Flask dynamic routing. The endpoint is variable and defined via one or multiple yaml files. 
+ Wppt leverages Flask dynamic routing. The endpoint is variable and defined via one or multiple yaml files.
  Based on the endpoint url, `wppt` parses all the yaml files stored on the `transformers` directory, and retrieves the outgoing webhook url and the translations. It then parses all the translations and converts the existing data from the incoming webhook into a new payload structure as defined on the yaml.
 
 ### Example:
@@ -40,11 +40,11 @@ Given the following incoming webhook payload to the yaml defined endpoint `http:
 ```json
 # Incoming Payload
 {
-    "project":{"name":"landing"}, 
-    "object_kind":"story", 
+    "project":{"name":"landing"},
+    "object_kind":"story",
     "object_attributes":{
-        "title": "Issue with", 
-        "description":"Short description here", 
+        "title": "Issue with",
+        "description":"Short description here",
         "url": "SITE HERE"
     }
 }
@@ -55,13 +55,13 @@ Given the following incoming webhook payload to the yaml defined endpoint `http:
 # Transformed Payload
 {
     "data": {
-        "name": "[landing][story] Issue with", 
+        "name": "[landing][story] Issue with",
         "description": "Description: Short description here\\nURL:SITE HERE"
     }
 }
 ```
 
-> [!NOTE]  
+> [!NOTE]
 > The structure of the transformed payload is based on the structure defined on the childs of the yaml `translations` node
 
 ## Requirements
