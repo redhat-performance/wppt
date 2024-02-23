@@ -26,6 +26,7 @@ Some services/platforms don't provide an easy-to-use integration vehicle for tra
 
 The corresponding endpoint as defined on the transformer yaml
 ```yaml
+# example.yaml
 gitlab2jira:
   enabled: true
   target_webhook: https://example.com/rest/cb-automation/latest/hooks/{JIRA_WEBHOOK_ID}
@@ -37,6 +38,7 @@ gitlab2jira:
 
 Given the following incoming webhook payload to the yaml defined endpoint `http://{FQDN}:5005/gitlab2jira/`:
 ```json
+# Incoming Payload
 {
     "project":{"name":"landing"}, 
     "object_kind":"story", 
@@ -50,6 +52,7 @@ Given the following incoming webhook payload to the yaml defined endpoint `http:
 
 `wppt` will then send an HTTP post request to the `target_webhook` defined on the yaml with the following payload:
 ```json
+# Transformed Payload
 {
     "data": {
         "name": "[landing][story] Issue with", 
