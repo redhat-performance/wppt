@@ -35,7 +35,7 @@ gitlab2jira:
       description: 'Description: {payload[object_attributes][description]}\nURL:{payload[object_attributes][url]}'
 ```
 
-Given the following incoming webhook payload to `http://{FQDN}:5005/gitlab2jira/`:
+Given the following incoming webhook payload to the yaml defined endpoint `http://{FQDN}:5005/gitlab2jira/`:
 ```json
 {
     "project":{"name":"landing"}, 
@@ -48,7 +48,7 @@ Given the following incoming webhook payload to `http://{FQDN}:5005/gitlab2jira/
 }
 ```
 
-`wppt` will then send and HTTP post request to `target_webhook` with the following payload:
+`wppt` will then send an HTTP post request to the `target_webhook` defined on the yaml with the following payload:
 ```json
 {
     "data": {
@@ -57,6 +57,9 @@ Given the following incoming webhook payload to `http://{FQDN}:5005/gitlab2jira/
     }
 }
 ```
+
+> [!NOTE]  
+> The structure of the transformed payload is based on the structure defined on the childs of the yaml `translations` node
 
 ## Requirements
 
