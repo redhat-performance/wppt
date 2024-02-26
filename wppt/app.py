@@ -1,9 +1,9 @@
 #! /usr/bin/env python
 
 import json
+import logging
 
 import requests
-import logging
 from flask import Flask, Response, jsonify, request
 
 from wppt.config import TRANSFORMERS_PATH
@@ -22,7 +22,7 @@ def hello():
 @app.route("/<transformer>/", methods=["POST"])
 def dinamic_transformer(transformer: str) -> Response:
     data = request.json
-    logger.info(f"[{transformer}] Received data: {data}")
+    logger.info("[%s] Received data: %s", transformer, data)
     definitions = parse_definitions(TRANSFORMERS_PATH)
     for _transformer, definition in definitions.items():
         if _transformer.lower() == transformer.lower():
@@ -36,30 +36,39 @@ def dinamic_transformer(transformer: str) -> Response:
                 except KeyError as ಠ_ಠ:
                     return jsonify(f"{ಠ_ಠ}", 400)
 
-                try:
-                    payload = json.dumps(translations)
-                    logger.info(f"[{transformer}] Transformed data: {payload}") # noqa
-                    response = requests.post(
-                        webhook_url,
-                        headers=headers,
-                        data=payload,
-                        timeout=10,
-                    )
-                except requests.exceptions.RequestException as ò_ó:
-                    payload = {
-                        "status_code": 400,
-                        "error": f"{ò_ó}",
-                        "message": f"Failed to send the transformed webhook for {_transformer}.",
-                    }
-                    return jsonify(payload)
+                if not translations:
+                    translations = data
 
-                if response.status_code not in (200, 201, 202, 204):
-                    payload = {
-                        "status_code": response.status_code,
-                        "error": response.text,
-                        "message": f"Failed to send the transformed webhook for {_transformer}.",
-                    }
-                    return jsonify(payload)
+                payload = json.dumps(translations)
+                logger.info("[%s] Transformed data: %s", transformer, payload)  # noqa
+                webhook_urls = webhook_url.split("|")
+                payloads = []
+                for url in webhook_urls:
+                    try:
+                        response = requests.post(
+                            url,
+                            headers=headers,
+                            data=payload,
+                            timeout=10,
+                        )
+                    except requests.exceptions.RequestException as ò_ó:
+                        err_payload = {
+                            "status_code": 400,
+                            "error": f"{ò_ó}",
+                            "message": f"Failed to send the transformed webhook for {_transformer}.",
+                        }
+                        payloads.append(err_payload)
+                        continue
+
+                    if response.status_code not in (200, 201, 202, 204):
+                        err_payload = {
+                            "status_code": response.status_code,
+                            "error": response.text,
+                            "message": f"Failed to send the transformed webhook for {_transformer}.",
+                        }
+                        payloads.append(err_payload)
+                if payloads:
+                    return jsonify(payloads)
             else:
                 return jsonify(f"Transformer {_transformer} is disabled", 400)
 

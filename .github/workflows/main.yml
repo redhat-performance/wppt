@@ -1,6 +1,15 @@
 name: main
 
-on: [push]
+on:
+  pull_request:
+    types: [opened, edited]
+    branches: [development, master]
+
+  push:
+    branches: [development, master]
+
+permissions:
+    checks: write
 
 jobs:
   build:
