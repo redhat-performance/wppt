@@ -90,12 +90,11 @@ class TestApp:
         )
 
         response = test_client.post("/transformer1/", json={"key1": "value1"})
-
         assert (
-            response.json["message"]
+            response.json[0]["message"]
             == "Failed to send the transformed webhook for transformer1."
         )
-        assert response.json["status_code"] == 400
+        assert response.json[0]["status_code"] == 400
         mock_traverse_format_dict.assert_called_once_with(
             {"key1": "value1"}, {"key1": "value1"}
         )

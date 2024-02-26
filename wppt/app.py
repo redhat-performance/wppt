@@ -36,33 +36,42 @@ def dinamic_transformer(transformer: str) -> Response:
                 except KeyError as ಠ_ಠ:
                     return jsonify(f"{ಠ_ಠ}", 400)
 
-                try:
-                    payload = json.dumps(translations)
-                    logger.info(f"[{transformer}] Transformed data: {payload}") # noqa
-                    response = requests.post(
-                        webhook_url,
-                        headers=headers,
-                        data=payload,
-                        timeout=10,
-                    )
-                except requests.exceptions.RequestException as ò_ó:
-                    payload = {
-                        "status_code": 400,
-                        "error": f"{ò_ó}",
-                        "message": f"Failed to send the transformed webhook for {_transformer}.",
-                    }
-                    return jsonify(payload)
+                if not translations:
+                    translations = data
 
-                if response.status_code not in (200, 201, 202, 204):
-                    payload = {
-                        "status_code": response.status_code,
-                        "error": response.text,
-                        "message": f"Failed to send the transformed webhook for {_transformer}.",
-                    }
-                    return jsonify(payload)
+                payload = json.dumps(translations)
+                logger.info(f"[{transformer}] Transformed data: {payload}") # noqa
+                webhook_urls = webhook_url.split("|")
+                payloads = []
+                for url in webhook_urls:
+                    try:
+                        response = requests.post(
+                            url,
+                            headers=headers,
+                            data=payload,
+                            timeout=10,
+                        )
+                    except requests.exceptions.RequestException as ò_ó:
+                        payload = {
+                            "status_code": 400,
+                            "error": f"{ò_ó}",
+                            "message": f"Failed to send the transformed webhook for {_transformer}.",
+                        }
+                        payloads.append(payload)
+                        continue
+
+                    if response.status_code not in (200, 201, 202, 204):
+                        payload = {
+                            "status_code": response.status_code,
+                            "error": response.text,
+                            "message": f"Failed to send the transformed webhook for {_transformer}.",
+                        }
+                        payloads.append(payload)
+                if payloads:
+                    return jsonify(payloads)
             else:
                 return jsonify(f"Transformer {_transformer} is disabled", 400)
-
+            
     return jsonify(
         {
             "status_code": 200,

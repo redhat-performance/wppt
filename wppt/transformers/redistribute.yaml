@@ -1,0 +1,7 @@
+redistribute:
+  enabled: true
+  target_webhook: https://example.com/rest/cb-automation/latest/hooks/{JIRA_WEBHOOK_ID}|https://other.com/rest/cb-automation/latest/hooks/{OTHER_WEBHOOK_ID}
+  translations:
+    data:
+      name: '[{payload[project][name]}][{payload[object_kind]}] {payload[object_attributes][title]}'
+      description: 'Description: {payload[object_attributes][description]}\nURL:{payload[object_attributes][url]}' 
