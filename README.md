@@ -62,7 +62,8 @@ Given the following incoming webhook payload to the yaml defined endpoint `http:
 ```
 
 > [!NOTE]
-> The structure of the transformed payload is based on the structure defined on the childs of the yaml `translations` node
+> The structure of the transformed payload is based on the structure defined on the childs of the yaml `translations` node.
+>
 > If the `translations` node is left blank, the payload is forwarded untouched.
 
 #### Multiple Outgoing Webhooks
@@ -76,7 +77,8 @@ Given the following incoming webhook payload to the yaml defined endpoint `http:
 ```
 
 > [!NOTE]
-> The `target_webhook` variable can contain multiple URLs separated by `|`
+> The `target_webhook` variable can contain multiple URLs separated by `|`.
+>
 > E.g.: `target_webhook: http://example.com/webhook|http://other.com/webhook`
 
 ## Requirements
