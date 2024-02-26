@@ -22,7 +22,7 @@ def hello():
 @app.route("/<transformer>/", methods=["POST"])
 def dinamic_transformer(transformer: str) -> Response:
     data = request.json
-    logger.info(f"[{transformer}] Received data: {data}")
+    logger.info("[%s] Received data: %s", transformer, data)
     definitions = parse_definitions(TRANSFORMERS_PATH)
     for _transformer, definition in definitions.items():
         if _transformer.lower() == transformer.lower():
@@ -40,7 +40,7 @@ def dinamic_transformer(transformer: str) -> Response:
                     translations = data
 
                 payload = json.dumps(translations)
-                logger.info(f"[{transformer}] Transformed data: {payload}")  # noqa
+                logger.info("[%s] Transformed data: %s", transformer, payload)  # noqa
                 webhook_urls = webhook_url.split("|")
                 payloads = []
                 for url in webhook_urls:
@@ -52,21 +52,21 @@ def dinamic_transformer(transformer: str) -> Response:
                             timeout=10,
                         )
                     except requests.exceptions.RequestException as ò_ó:
-                        payload = {
+                        err_payload = {
                             "status_code": 400,
                             "error": f"{ò_ó}",
                             "message": f"Failed to send the transformed webhook for {_transformer}.",
                         }
-                        payloads.append(payload)
+                        payloads.append(err_payload)
                         continue
 
                     if response.status_code not in (200, 201, 202, 204):
-                        payload = {
+                        err_payload = {
                             "status_code": response.status_code,
                             "error": response.text,
                             "message": f"Failed to send the transformed webhook for {_transformer}.",
                         }
-                        payloads.append(payload)
+                        payloads.append(err_payload)
                 if payloads:
                     return jsonify(payloads)
             else:
