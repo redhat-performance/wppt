@@ -68,6 +68,9 @@ Given the following incoming webhook payload to the yaml defined endpoint `http:
 
 #### Multiple Outgoing Webhooks
 
+The `target_webhook` variable can contain multiple URLs separated by `|`.
+
+E.g.: `target_webhook: http://example.com/webhook|http://other.com/webhook`
 
 ```mermaid
  sequenceDiagram
@@ -75,11 +78,6 @@ Given the following incoming webhook payload to the yaml defined endpoint `http:
     wppt->>Jira Webhook Listener: Transformed Payload
     wppt->>Slack Webhook Listener: Transformed Payload
 ```
-
-> [!NOTE]
-> The `target_webhook` variable can contain multiple URLs separated by `|`.
->
-> E.g.: `target_webhook: http://example.com/webhook|http://other.com/webhook`
 
 ## Requirements
 
