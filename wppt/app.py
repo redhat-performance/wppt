@@ -1,9 +1,9 @@
 #! /usr/bin/env python
 
 import json
+import logging
 
 import requests
-import logging
 from flask import Flask, Response, jsonify, request
 
 from wppt.config import TRANSFORMERS_PATH
@@ -40,7 +40,7 @@ def dinamic_transformer(transformer: str) -> Response:
                     translations = data
 
                 payload = json.dumps(translations)
-                logger.info(f"[{transformer}] Transformed data: {payload}") # noqa
+                logger.info(f"[{transformer}] Transformed data: {payload}")  # noqa
                 webhook_urls = webhook_url.split("|")
                 payloads = []
                 for url in webhook_urls:
@@ -71,7 +71,7 @@ def dinamic_transformer(transformer: str) -> Response:
                     return jsonify(payloads)
             else:
                 return jsonify(f"Transformer {_transformer} is disabled", 400)
-            
+
     return jsonify(
         {
             "status_code": 200,
