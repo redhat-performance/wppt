@@ -27,7 +27,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 
-python = "^3.11"
+python = "~3.11"
 
 flask = "3.0.2"
 requests = "2.31.0"
