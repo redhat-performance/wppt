@@ -70,7 +70,7 @@ Given the following incoming webhook payload to the yaml defined endpoint `http:
 
 The `target_webhook` variable can contain multiple URLs separated by `|`.
 
-E.g.: `target_webhook: http://example.com/webhook|http://other.com/webhook`
+E.g.: `target_webhook: http://jira.com/webhook|http://slack.com/webhook`
 
 ```mermaid
  sequenceDiagram
