@@ -3,12 +3,15 @@
 import json
 
 import requests
+import logging
 from flask import Flask, Response, jsonify, request
 
 from wppt.config import TRANSFORMERS_PATH
 from wppt.utils import parse_definitions, traverse_format_dict
 
 app = Flask(__name__)
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 
 @app.route("/")
@@ -19,6 +22,7 @@ def hello():
 @app.route("/<transformer>/", methods=["POST"])
 def dinamic_transformer(transformer: str) -> Response:
     data = request.json
+    logger.info(f"[{transformer}] Received data: {data}")
     definitions = parse_definitions(TRANSFORMERS_PATH)
     for _transformer, definition in definitions.items():
         if _transformer.lower() == transformer.lower():
@@ -33,16 +37,18 @@ def dinamic_transformer(transformer: str) -> Response:
                     return jsonify(f"{ಠ_ಠ}", 400)
 
                 try:
+                    payload = json.dumps(translations)
+                    logger.info(f"[{transformer}] Transformed data: {payload}") # noqa
                     response = requests.post(
                         webhook_url,
                         headers=headers,
-                        data=json.dumps(translations),
+                        data=payload,
                         timeout=10,
                     )
-                except requests.exceptions.RequestException as e:
+                except requests.exceptions.RequestException as ò_ó:
                     payload = {
                         "status_code": 400,
-                        "error": f"{e}",
+                        "error": f"{ò_ó}",
                         "message": f"Failed to send the transformed webhook for {_transformer}.",
                     }
                     return jsonify(payload)
