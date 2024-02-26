@@ -13,8 +13,8 @@ Some services/platforms don't provide an easy-to-use integration vehicle for tra
 
 ## How Does `wppt` Work?
 
- Wppt leverages Flask dynamic routing. The endpoint is variable and defined via one or multiple yaml files.
- Based on the endpoint url, `wppt` parses all the yaml files stored on the `transformers` directory, and retrieves the outgoing webhook url and the translations. It then parses all the translations and converts the existing data from the incoming webhook into a new payload structure as defined on the yaml.
+ Wppt leverages Flask dynamic routing. The endpoint is variable and defined via one or multiple yaml files. 
+ Based on the endpoint url, `wppt` parses all the yaml files stored on the `transformers` directory, and retrieves the outgoing webhook url and it's translations. It then parses all the translations and converts the existing data from the incoming webhook into a new payload structure as defined on the yaml.
 
 ### Example:
 
@@ -43,20 +43,20 @@ Given the following incoming webhook payload to the yaml defined endpoint `http:
     "project":{"name":"landing"},
     "object_kind":"story",
     "object_attributes":{
-        "title": "Issue with",
-        "description":"Short description here",
-        "url": "SITE HERE"
+        "title": "Issue with", 
+        "description":"Short description here", 
+        "url": "http://site.here"
     }
 }
 ```
 
-`wppt` will then send an HTTP post request to the `target_webhook` defined on the yaml with the following payload:
+`wppt` will then send a `POST` request to the `target_webhook` defined on the yaml with the following payload:
 ```json
 # Transformed Payload
 {
     "data": {
-        "name": "[landing][story] Issue with",
-        "description": "Description: Short description here\\nURL:SITE HERE"
+        "name": "[landing][story] Issue with", 
+        "description": "Description: Short description here\\nURL:http://site.here"
     }
 }
 ```
@@ -67,8 +67,10 @@ Given the following incoming webhook payload to the yaml defined endpoint `http:
 ## Requirements
 
 * Python 3.11+
+* Poetry
 * Flask
 * requests
+* PyYAML
 
 ## Installation
 
@@ -92,7 +94,7 @@ $ make run
 
 #### Building the image
 ```bash
-$ cd docker
+$ cd container
 $ podman build -t wppt .
 ```
 
