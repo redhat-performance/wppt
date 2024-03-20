@@ -38,7 +38,7 @@ types-PyYAML = "*"
 [tool.poetry.dev-dependencies]
 
 # Formatters
-black = "^22.1"
+black = "^24.3"
 tomli = "*"     # missing 'black' dependency
 isort = "^5.10"
 ipdb = "0.13.13"      # missing 'black' dependency
