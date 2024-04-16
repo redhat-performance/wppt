@@ -1,11 +1,11 @@
 <img src="assets/logo.png" width=100px height=100px>
 
-# Wppt
+# Whippet
 #### Webhook Payload Proxy Transformer
 
 ## Overview
 
-Wppt *(Pronounced: [**ˈwɪpɪt**])* provides an easy way to intercept, manage, manipulate and re-send a webhook/API call to any Rest API or incoming webhook service (like JIRA).
+Whippet *(Pronounced: [**ˈwɪpɪt**])* provides an easy way to intercept, manage, manipulate and re-send a webhook/API call to any Rest API or incoming webhook service (like JIRA).
 
 ## Why Is This Needed?
 
